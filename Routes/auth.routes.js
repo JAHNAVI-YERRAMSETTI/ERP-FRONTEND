@@ -7,4 +7,4 @@ router.post('/signin', signin);
 router.post('/signup', signup);
 
 // Use default export
-export default router;
+export default router; // Ensure this line is present
