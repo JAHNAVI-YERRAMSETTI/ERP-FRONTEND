@@ -6,5 +6,5 @@ const router = express.Router();
 router.post('/signin', signin);
 router.post('/signup', signup);
 
-// Exporting as a named export
-export { router };
+// Use default export
+export default router;
