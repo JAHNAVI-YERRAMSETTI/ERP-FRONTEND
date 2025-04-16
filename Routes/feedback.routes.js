@@ -1,12 +1,10 @@
-import express from "express";
-import {
-  feedback1,
-  feedbackresult,
-} from "../Controllers/feedback.controller.js";
+import express from 'express';
+import { feedback1, feedbackresult } from '../controllers/feedback.controller.js';  // Assuming you have these functions in feedback.controller.js
 
 const router = express.Router();
 
-router.post("/", feedback1);
-router.get("/result", feedbackresult);
+// Define routes for submitting and viewing feedback
+router.post('/submit', feedback1); // To submit feedback
+router.get('/results', feedbackresult); // To get all feedback results
 
 export default router;
