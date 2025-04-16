@@ -1,37 +1,14 @@
-import express from "express";
-import "dotenv/config";
-import connectDB from "./Database/User.js";
-import cors from "cors";
-import authRouter from "./routes/auth.routes.js";
-import feedbackRouter from "./routes/feedback.routes.js";
-import courseRouter from "./routes/course.routes.js";
+import express from 'express';
+import authRoutes from './routes/auth.routes.js'; // Import the auth routes
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
-}));
+app.use(express.json());  // To handle JSON requests
 
-connectDB()
-  .then(() => {
-    app.use("/api/auth", authRouter);
-    app.use("/api/feedback", feedbackRouter);
-    app.use("/api/courses", courseRouter);
-  })
-  .catch((err) => {
-    console.error("Failed to connect to database:", err);
-  });
+// Use auth routes
+app.use('/api/auth', authRoutes);  // This will make auth routes available at /api/auth
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ 
-    message: 'Something went wrong!',
-    error: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error'
-  });
-});
-
-app.listen(process.env.PORT || 3009, () => {
-  console.log(`Example app listening at http://localhost:${process.env.PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
